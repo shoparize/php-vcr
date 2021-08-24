@@ -22,9 +22,11 @@ class HttpClient
     public function send(Request $request): Response
     {
         $ch = curl_init($request->getUrl());
-        
+
         Assertion::isCurlResource($ch, "Could not init curl with URL '{$request->getUrl()}'");
 
+        curl_setopt($ch, \CURLOPT_COOKIEJAR, '/tmp/cookies');
+        curl_setopt($ch, \CURLOPT_COOKIEFILE, '/tmp/cookies');
         curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, $request->getMethod());
         curl_setopt($ch, \CURLOPT_HTTPHEADER, HttpUtil::formatHeadersForCurl($request->getHeaders()));
         if (null !== $request->getBody()) {
