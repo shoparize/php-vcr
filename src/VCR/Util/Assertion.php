@@ -11,6 +11,15 @@ class Assertion extends BaseAssertion
 
     public const INVALID_CALLABLE = 910;
 
+    public static function isCurlResource($value, $message): bool
+    {
+        if(is_object($value) && get_class($value) == \CurlHandle::class) {
+            return true;
+        }
+
+        return Assertion::isResource($value, $message);
+    }
+
     /**
      * Assert that the value is callable.
      *
