@@ -36,6 +36,7 @@ class CurlHelper
         \CURLINFO_CONTENT_LENGTH_DOWNLOAD => 'download_content_length',
         \CURLINFO_CONTENT_LENGTH_UPLOAD => 'upload_content_length',
         \CURLINFO_CONTENT_TYPE => 'content_type',
+        \CURLINFO_APPCONNECT_TIME => 'appconnect_time',
     ];
 
     /**
@@ -112,6 +113,7 @@ class CurlHelper
                 $info = mb_strlen(HttpUtil::formatAsStatusWithHeadersString($response), 'ISO-8859-1');
                 break;
             case \CURLPROXY_HTTPS:
+            case \CURLINFO_APPCONNECT_TIME:
                 $info = '';
                 break;
             default:
